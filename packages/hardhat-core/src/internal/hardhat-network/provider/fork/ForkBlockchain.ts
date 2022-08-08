@@ -303,6 +303,8 @@ export class ForkBlockchain
       block.transactions.push(tx);
     }
 
+    block.hash = () => rpcBlock.hash!;
+
     this._data.addBlock(block, rpcBlock.totalDifficulty);
     return block;
   }
