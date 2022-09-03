@@ -340,6 +340,16 @@ export class ForkStateManager implements EIP2929StateManager {
     blockNumber: BN,
     irregularState?: Buffer
   ) {
+    // Hack because i don't know why this failed while running with subgraph
+    while (this._stateCheckpoints.length > 0) {
+      console.log(
+        "[Set Block Context] State Checkpoints' length",
+        this._stateCheckpoints.length
+      );
+      this._stateCheckpoints.pop();
+      this._accessedStorage.pop();
+    }
+
     if (this._stateCheckpoints.length !== 0) {
       throw checkpointedError("setBlockContext");
     }
